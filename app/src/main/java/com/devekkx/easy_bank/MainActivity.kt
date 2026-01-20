@@ -11,6 +11,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.devekkx.easy_bank.navigation.NavigationController
+import com.devekkx.easy_bank.services.auth.AuthViewModel
 import com.devekkx.easy_bank.ui.theme.SplashScreenViewModel
 
 class MainActivity : ComponentActivity() {
@@ -48,6 +51,8 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
+            val authViewModel: AuthViewModel = viewModel()
+            NavigationController(authViewModel)
         }
         setTheme(R.style.Theme_EasyBank)
     }
