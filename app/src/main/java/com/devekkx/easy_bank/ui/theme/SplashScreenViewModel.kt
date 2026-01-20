@@ -14,7 +14,6 @@ private val _isSplashScreenVisible: MutableStateFlow<Boolean> = MutableStateFlow
 
     init {
         viewModelScope.launch {
-            delay(2000)
             _isSplashScreenVisible.value = false
         }
     }

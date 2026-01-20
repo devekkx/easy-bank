@@ -4,6 +4,7 @@
     <style name="Theme.EasyBank" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.SplashScreen" parent="Theme.EasyBank">
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@drawable/easy_bank</item>
          <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/primary</item>
         <item name="postSplashScreenTheme">@style/Theme.EasyBank</item>
 
