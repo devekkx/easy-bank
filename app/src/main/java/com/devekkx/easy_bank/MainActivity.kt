@@ -54,6 +54,6 @@ class MainActivity : ComponentActivity() {
             val authViewModel: AuthViewModel = viewModel()
             NavigationController(authViewModel)
         }
-        setTheme(R.style.Theme_EasyBank)
+//        setTheme(R.style.Theme_EasyBank)
     }
 }

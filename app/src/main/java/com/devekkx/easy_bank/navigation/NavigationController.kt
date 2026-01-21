@@ -6,7 +6,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
@@ -14,11 +13,11 @@ import androidx.navigation3.ui.NavDisplay
 import com.devekkx.easy_bank.screens.LoginScreen
 import com.devekkx.easy_bank.screens.RegisterScreen
 import com.devekkx.easy_bank.services.auth.AuthViewModel
+import com.devekkx.easy_bank.ui.theme.AuthTheme
 
 
 @Composable
 fun NavigationController(
-    modifier: Modifier = Modifier,
     authViewModel: AuthViewModel = viewModel(),
 ) {
 //    Observe authentication flow
@@ -48,11 +47,13 @@ fun NavigationController(
             when (key) {
 //                Auth Flow
                 is Route.Login -> NavEntry(key) {
-                    LoginScreen(
-                        onLoginSuccess = { authViewModel.login() },
-                        onSignupClick = { backStack.add(Route.Register) },
+                    AuthTheme {
+                        LoginScreen(
+                            onLoginSuccess = { authViewModel.login() },
+                            onSignupClick = { backStack.add(Route.Register) },
 //                        onForgotClick = { backStack.add(Route.ForgotPassword) }
-                    )
+                        )
+                    }
                 }
 
                 is Route.Register -> NavEntry(key) {
