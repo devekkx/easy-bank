@@ -1,6 +1,8 @@
 package com.devekkx.easy_bank.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,10 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -19,11 +23,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.devekkx.easy_bank.R
+import com.devekkx.easy_bank.ui.components.InputField
+import com.devekkx.easy_bank.ui.components.InputType
+import com.devekkx.easy_bank.ui.theme.Primary
 
 @Composable
 fun LoginScreen(
@@ -39,15 +53,22 @@ fun LoginScreen(
             .background(Color.White)
             .verticalScroll(rememberScrollState())
     ) {
-        // --- Blue Header Section ---
+        // Blue Header Section
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
-                .background(Color(0xFF3F37C9))
-                .padding(top = 48.dp, start = 16.dp)
+                .height(180.dp)
+                .background(Primary)
+                .padding(start = 16.dp, bottom = 64.dp),
+            contentAlignment = Alignment.BottomEnd
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+
+            // Back arrow and sign in text
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = "Back",
@@ -64,57 +85,81 @@ fun LoginScreen(
             }
         }
 
-        // --- White Content Body with Curved Top ---
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .offset(y = (-40).dp) // Pull up to overlap blue background
-//                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
-//                .background(Color.White)
-//                .padding(24.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//            Text(
-//                text = "Welcome Back",
-//                style = MaterialTheme.typography.headlineMedium,
-//                fontWeight = FontWeight.Bold,
-//                modifier = Modifier.fillMaxWidth()
-//            )
-//            Text(
-//                text = "Hello there, sign in to continue",
-//                color = Color.Gray,
-//                modifier = Modifier.fillMaxWidth()
-//            )
-//
-//            Spacer(Modifier.height(32.dp))
-//
-//            // --- Lock Illustration (Simplified with Circles) ---
-//            Box(contentAlignment = Alignment.Center, modifier = Modifier.size(150.dp)) {
-//                // Background circle
-//                Box(
-//                    modifier = Modifier
-//                        .size(100.dp)
-//                        .clip(CircleShape)
-//                        .background(Color(0xFFEDEDFF))
-//                )
-//                // Lock Icon
-//                Icon(
-//                    imageVector = Icons.Default.Lock,
-//                    contentDescription = null,
-//                    modifier = Modifier.size(48.dp),
-//                    tint = Color(0xFF3F37C9)
-//                )
-//                // Decorative colorful dots (Example of placement)
-//                Canvas(modifier = Modifier.fillMaxSize()) {
-//                    drawCircle(Color(0xFFFF4D6D), radius = 8f, center = Offset(x = 280f, y = 50f))
-//                    drawCircle(Color(0xFF4CC9F0), radius = 12f, center = Offset(x = 50f, y = 150f))
-//                    drawCircle(Color(0xFFF7B731), radius = 10f, center = Offset(x = 80f, y = 300f))
-//                }
-//            }
-//
-//            Spacer(Modifier.height(32.dp))
-//
-//            // --- Input Fields ---
+        // White Content Body with Curved Top
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .offset(y = (-50).dp)
+                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
+                .background(Color.White)
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            // Heading texts
+            Column {
+                Text(
+                    text = "Welcome Back",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = Primary,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "Hello there, sign in to continue",
+                    color = Color.Black,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            Spacer(Modifier.height(32.dp))
+
+            // Login Illustration
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(230.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.login_illustration),
+                    contentDescription = "Login Illustration",
+                )
+            }
+
+            Spacer(Modifier.height(32.dp))
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                var email by remember { mutableStateOf("") }
+                var password by remember { mutableStateOf("") }
+
+                InputField(
+                    type = InputType.EMAIL,
+                    placeholder = "Email",
+                    email,
+                    shape = RoundedCornerShape(12.dp),
+                    onValueChange = { email = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                InputField(
+                    type = InputType.PASSWORD,
+                    placeholder = "Password",
+                    password,
+                    shape = RoundedCornerShape(12.dp),
+                    onValueChange = { password = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            //            // Input Fields
 //            OutlinedTextField(
 //                value = email,
 //                onValueChange = { email = it },
@@ -180,7 +225,7 @@ fun LoginScreen(
 //                    modifier = Modifier.clickable { onRegisterClick() }
 //                )
 //            }
-//        }
+        }
     }
 
 }

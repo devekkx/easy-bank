@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.devekkx.easy_bank.navigation.NavigationController
 import com.devekkx.easy_bank.services.auth.AuthViewModel
+import com.devekkx.easy_bank.ui.components.SplashScreenViewModel
 import com.devekkx.easy_bank.ui.theme.AppTheme
-import com.devekkx.easy_bank.ui.theme.SplashScreenViewModel
 
 class MainActivity : ComponentActivity() {
     private val splashScreenViewModel: SplashScreenViewModel by lazy {
