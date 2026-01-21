@@ -57,7 +57,7 @@ val AuthLightColorScheme = lightColorScheme(
     onSecondary = Black,
     secondaryContainer = SecondaryLight,
 
-    background = Primary,
+    background = White,
     onBackground = Black,
 
     surface = White,
@@ -123,14 +123,5 @@ fun AppTheme(dynamicColor: Boolean = false, content: @Composable () -> Unit) {
         colorScheme = colorSchemeSwitcher(dynamicColor),
         typography = Typography,
         content = content
-    )
-}
-
-@Composable
-fun AuthTheme(dynamicColor: Boolean = false, content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = colorSchemeSwitcher(dynamicColor, AuthLightColorScheme, AuthLightColorScheme),
-        typography = Typography,
-        content = content,
     )
 }

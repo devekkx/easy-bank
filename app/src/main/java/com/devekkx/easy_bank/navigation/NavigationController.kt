@@ -13,7 +13,6 @@ import androidx.navigation3.ui.NavDisplay
 import com.devekkx.easy_bank.screens.LoginScreen
 import com.devekkx.easy_bank.screens.RegisterScreen
 import com.devekkx.easy_bank.services.auth.AuthViewModel
-import com.devekkx.easy_bank.ui.theme.AuthTheme
 
 
 @Composable
@@ -47,13 +46,14 @@ fun NavigationController(
             when (key) {
 //                Auth Flow
                 is Route.Login -> NavEntry(key) {
-                    AuthTheme {
-                        LoginScreen(
-                            onLoginSuccess = { authViewModel.login() },
-                            onSignupClick = { backStack.add(Route.Register) },
+//                    AuthTheme {
+                    LoginScreen(
+                        onLoginSuccess = { authViewModel.login() },
+                        onRegisterClick = { backStack.add(Route.Register) },
+                        onForgotClick = { authViewModel.login() },
 //                        onForgotClick = { backStack.add(Route.ForgotPassword) }
-                        )
-                    }
+                    )
+//                    }
                 }
 
                 is Route.Register -> NavEntry(key) {
