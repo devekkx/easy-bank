@@ -33,17 +33,17 @@ fun InputField(
     modifier: Modifier = Modifier
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-
-    when (type) {
-        InputType.EMAIL -> KeyboardOptions(keyboardType = KeyboardType.Email)
-        InputType.PASSWORD -> KeyboardOptions(keyboardType = KeyboardType.Password)
-        else -> KeyboardOptions(keyboardType = KeyboardType.Text)
-    }
-
+    
     val visualTransformation = if (type == InputType.PASSWORD && !passwordVisible) {
         PasswordVisualTransformation()
     } else {
         VisualTransformation.None
+    }
+
+    val keyboardType = when (type) {
+        InputType.EMAIL -> KeyboardType.Email
+        InputType.PASSWORD -> KeyboardType.Password
+        else -> KeyboardType.Text
     }
 
     OutlinedTextField(
@@ -53,7 +53,7 @@ fun InputField(
         modifier = modifier,
         shape = shape,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         visualTransformation = visualTransformation,
         trailingIcon = {
             if (type == InputType.PASSWORD) {
