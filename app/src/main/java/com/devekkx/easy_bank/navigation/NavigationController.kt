@@ -10,9 +10,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.devekkx.easy_bank.modules.auth.AuthViewModel
 import com.devekkx.easy_bank.screens.LoginScreen
 import com.devekkx.easy_bank.screens.RegisterScreen
-import com.devekkx.easy_bank.services.auth.AuthViewModel
 
 
 @Composable

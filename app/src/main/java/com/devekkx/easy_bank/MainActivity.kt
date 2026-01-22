@@ -8,15 +8,17 @@ import android.view.animation.LinearInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.devekkx.easy_bank.modules.auth.AuthViewModel
 import com.devekkx.easy_bank.navigation.NavigationController
-import com.devekkx.easy_bank.services.auth.AuthViewModel
 import com.devekkx.easy_bank.ui.components.SplashScreenViewModel
 import com.devekkx.easy_bank.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val splashScreenViewModel: SplashScreenViewModel by lazy {
         ViewModelProvider(this@MainActivity)[SplashScreenViewModel::class.java]
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                val authViewModel: AuthViewModel = viewModel()
+                val authViewModel: AuthViewModel by viewModels()
                 NavigationController(authViewModel)
             }
         }

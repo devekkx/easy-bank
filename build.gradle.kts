@@ -4,4 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     // Optional, provides the @Serialize annotation for autogeneration of Serializers.
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    id("com.google.devtools.ksp") version "2.3.4" apply false
+    id("com.google.dagger.hilt.android") version "2.59" apply false
 }
