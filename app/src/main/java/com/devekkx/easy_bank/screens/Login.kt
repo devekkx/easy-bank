@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,30 +50,7 @@ fun LoginScreen(
                 .height(180.dp)
                 .background(Primary)
                 .padding(start = 16.dp, bottom = 64.dp),
-            contentAlignment = Alignment.BottomEnd
-        ) {
-
-            // Back arrow and sign in text
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-//                    contentDescription = "Back",
-//                    tint = Color.White,
-//                    modifier = Modifier.size(32.dp)
-//                )
-//                Spacer(Modifier.width(8.dp))
-//                Text(
-//                    text = "Sign in",
-//                    color = Color.White,
-//                    style = MaterialTheme.typography.headlineSmall,
-//                    fontWeight = FontWeight.Bold
-//                )
-//            }
-        }
+        )
 
         // White Content Body with Curved Top
         Column(

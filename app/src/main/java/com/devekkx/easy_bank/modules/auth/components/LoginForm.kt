@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,14 +31,18 @@ fun LoginForm(viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = M
             placeholder = "Email",
             value = viewModel.email,
             onValueChange = { viewModel.onEmailChange(it) },
-            errorMessage = viewModel.emailError
+            errorMessage = viewModel.emailError,
         )
 
         InputField(
             type = InputType.PASSWORD,
             placeholder = "Password",
             value = viewModel.password,
-            onValueChange = { viewModel.onPasswordChange(it) }
+            imeAction = ImeAction.Done,
+            onValueChange = { viewModel.onPasswordChange(it) },
+            onAction = {
+                viewModel.login()
+            }
         )
 
         Button(

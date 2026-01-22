@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -39,6 +40,8 @@ fun InputField(
     onValueChange: (String) -> Unit,
     shape: RoundedCornerShape = RoundedCornerShape(20.dp),
     errorMessage: String? = null,
+    imeAction: ImeAction = ImeAction.Next,
+    onAction: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isError = errorMessage != null
@@ -57,9 +60,16 @@ fun InputField(
         else -> KeyboardType.Text
     }
 
+
     val keyboardActions = KeyboardActions(
-        onNext = { focusManager.moveFocus(FocusDirection.Down) },
-        onDone = { focusManager.clearFocus() }
+        onNext = {
+            focusManager.moveFocus(FocusDirection.Down)
+            onAction()
+        },
+        onDone = {
+            focusManager.clearFocus()
+            onAction()
+        }
     )
 
     Column {
@@ -72,7 +82,7 @@ fun InputField(
             shape = shape,
             isError = isError,
             keyboardActions = keyboardActions,
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
             visualTransformation = visualTransformation,
             trailingIcon = {
                 if (type == InputType.PASSWORD) {
