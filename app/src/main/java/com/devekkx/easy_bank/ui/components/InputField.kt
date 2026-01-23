@@ -41,10 +41,10 @@ fun InputField(
     shape: RoundedCornerShape = RoundedCornerShape(20.dp),
     errorMessage: String? = null,
     imeAction: ImeAction = ImeAction.Next,
+    isError: Boolean = (errorMessage != null),
     onAction: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val isError = errorMessage != null
     val focusManager = LocalFocusManager.current
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
@@ -100,7 +100,7 @@ fun InputField(
         )
 
         // Show error text if it exists
-        if (isError) {
+        if (isError && errorMessage != null) {
             Text(
                 text = errorMessage,
                 color = MaterialTheme.colorScheme.error,
