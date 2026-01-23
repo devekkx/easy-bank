@@ -30,12 +30,11 @@ import androidx.compose.ui.unit.dp
 import com.devekkx.easy_bank.R
 import com.devekkx.easy_bank.modules.auth.components.HeaderTexts
 import com.devekkx.easy_bank.modules.auth.components.LoginForm
-import com.devekkx.easy_bank.ui.components.AnnotatedStringWithLink
+import com.devekkx.easy_bank.ui.components.AnnotatedStringWithClick
 import com.devekkx.easy_bank.ui.theme.Primary
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit,
     onForgotClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -100,8 +99,6 @@ fun LoginScreen(
                 Text("Forgot your password ?", color = Color.Gray)
             }
 
-            AnnotatedStringWithLink()
-
             Spacer(Modifier.height(24.dp))
 
             // Fingerprint Icon
@@ -115,17 +112,12 @@ fun LoginScreen(
             )
             Spacer(Modifier.height(24.dp))
 
-//
-//            // --- Footer ---
-//            Row {
-//                Text("Don't have an account? ", color = Color.Gray)
-//                Text(
-//                    text = "Sign Up",
-//                    color = Color(0xFF3F37C9),
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier.clickable { onRegisterClick() }
-//                )
-//            }
+//            Sign up link
+            AnnotatedStringWithClick(
+                label = "Don't have an account?",
+                linkText = "Sign up",
+                onClick = onRegisterClick,
+            )
         }
     }
 

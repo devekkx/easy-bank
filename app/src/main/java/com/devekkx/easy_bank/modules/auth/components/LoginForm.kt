@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.devekkx.easy_bank.modules.auth.AuthViewModel
 import com.devekkx.easy_bank.ui.components.InputField
 import com.devekkx.easy_bank.ui.components.InputType
@@ -25,7 +25,7 @@ import com.devekkx.easy_bank.ui.theme.White
 fun LoginForm(viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         InputField(
             type = InputType.EMAIL,

@@ -47,9 +47,8 @@ fun NavigationController(
 //                Auth Flow
                 is Route.Login -> NavEntry(key) {
                     LoginScreen(
-                        onLoginSuccess = { authViewModel.login() },
                         onRegisterClick = { backStack.add(Route.Register) },
-                        onForgotClick = { authViewModel.login() },
+                        onForgotClick = { backStack.add(Route.ForgotPassword) },
                     )
                 }
 
