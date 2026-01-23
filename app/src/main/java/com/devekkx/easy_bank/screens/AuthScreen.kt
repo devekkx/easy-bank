@@ -30,15 +30,20 @@ import androidx.compose.ui.unit.dp
 import com.devekkx.easy_bank.R
 import com.devekkx.easy_bank.modules.auth.components.HeaderTexts
 import com.devekkx.easy_bank.modules.auth.components.LoginForm
+import com.devekkx.easy_bank.navigation.AuthMode
 import com.devekkx.easy_bank.ui.components.AnnotatedStringWithClick
 import com.devekkx.easy_bank.ui.theme.Primary
 
 @Composable
-fun LoginScreen(
-    onRegisterClick: () -> Unit,
+fun AuthScreen(
+    mode: AuthMode = AuthMode.LOGIN,
+    onAuthActionClick: () -> Unit,
     onForgotClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isRegister = mode == AuthMode.REGISTER
+    print(isRegister)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,8 +72,8 @@ fun LoginScreen(
 
             // Heading texts
             HeaderTexts(
-                title = "Welcome Back",
-                subtitle = "Hello there, sign in to continue",
+                title = if (isRegister) "Welcome to us" else "Welcome Back",
+                subtitle = if (isRegister) "Hello there, create New account" else "Hello there, sign in to continue",
             )
             Spacer(Modifier.height(32.dp))
 
@@ -116,7 +121,7 @@ fun LoginScreen(
             AnnotatedStringWithClick(
                 label = "Don't have an account?",
                 linkText = "Sign up",
-                onClick = onRegisterClick,
+                onClick = {},
             )
         }
     }
