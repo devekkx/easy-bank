@@ -50,7 +50,6 @@ fun NavigationController(
                         onLoginSuccess = { authViewModel.login() },
                         onRegisterClick = { backStack.add(Route.Register) },
                         onForgotClick = { authViewModel.login() },
-//                        onForgotClick = { backStack.add(Route.ForgotPassword) }
                     )
                 }
 
