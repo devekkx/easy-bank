@@ -24,7 +24,7 @@ fun NavigationController(
 
 //    configure backStack (stateful list)
     val backStack =
-        remember { mutableStateListOf<Route>(if (authState.isLoggedIn) Route.Dashboard else Route.Login) }
+        remember { mutableStateListOf(if (authState.isLoggedIn) Route.Dashboard else Route.Login) }
 
 //    Reactive navigation: Switch stacks when login status changes
     LaunchedEffect(authState.isLoggedIn) {
@@ -46,14 +46,12 @@ fun NavigationController(
             when (key) {
 //                Auth Flow
                 is Route.Login -> NavEntry(key) {
-//                    AuthTheme {
                     LoginScreen(
                         onLoginSuccess = { authViewModel.login() },
                         onRegisterClick = { backStack.add(Route.Register) },
                         onForgotClick = { authViewModel.login() },
 //                        onForgotClick = { backStack.add(Route.ForgotPassword) }
                     )
-//                    }
                 }
 
                 is Route.Register -> NavEntry(key) {

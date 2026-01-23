@@ -1,5 +1,6 @@
 package com.devekkx.easy_bank.modules.auth
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,15 +19,21 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     var email by mutableStateOf("")
         private set
-    
+
     var emailError by mutableStateOf<String?>(null)
         private set
-        
+
     var password by mutableStateOf("")
         private set
 
-    val isFormValid: Boolean
+    var passwordError by mutableStateOf<String?>(null)
+        private set
+
+    val isSignUpFormValid: Boolean
         get() = email.contains("@") && password.length >= 6
+
+    val isLoginFormValid: Boolean
+        get() = password != "" && email != ""
 
     fun onEmailChange(newEmail: String) {
         email = newEmail
@@ -42,11 +49,12 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     }
 
     fun login() {
-        if (!isFormValid) return
-        
-        _uiState.update { it.copy(isLoading = true) }
+        if (!isLoginFormValid) return
+        Log.d("AUTH_DEBUG", "Logging in with email: $email and password: $password")
+
+//        _uiState.update { it.copy(isLoading = true) }
         // Logic for authentication would go here
-        _uiState.update { it.copy(isLoggedIn = true, isLoading = false) }
+//        _uiState.update { it.copy(isLoggedIn = true, isLoading = false) }
     }
 
     fun logout() {

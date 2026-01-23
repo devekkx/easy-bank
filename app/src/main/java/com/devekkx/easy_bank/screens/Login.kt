@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,15 +27,15 @@ import com.devekkx.easy_bank.R
 import com.devekkx.easy_bank.modules.auth.components.LoginForm
 import com.devekkx.easy_bank.ui.theme.Primary
 
-
 @Composable
 fun LoginScreen(
+    checkNum: Boolean = false,
     onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit,
     onForgotClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
+    println(checkNum)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -86,10 +85,12 @@ fun LoginScreen(
             // Login Illustration
             Box(
                 contentAlignment = Alignment.Center,
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(230.dp)
             ) {
+
                 Image(
                     painter = painterResource(id = R.drawable.login_illustration),
                     contentDescription = "Login Illustration",
