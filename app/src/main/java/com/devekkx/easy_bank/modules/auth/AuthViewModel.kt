@@ -22,15 +22,16 @@ class AuthViewModel @Inject constructor(
     val uiState: StateFlow<AuthUIState> = _uiState.asStateFlow()
     val authMode: AuthMode = savedStateHandle.get<AuthMode>("mode") ?: AuthMode.LOGIN
 
+    var name by mutableStateOf("")
+        private set
     var email by mutableStateOf("")
         private set
-
-    var emailError by mutableStateOf<String?>(null)
-        private set
-
     var password by mutableStateOf("")
         private set
-
+    var nameError by mutableStateOf<String?>(null)
+        private set
+    var emailError by mutableStateOf<String?>(null)
+        private set
     var passwordError by mutableStateOf<String?>(null)
         private set
 
@@ -47,6 +48,10 @@ class AuthViewModel @Inject constructor(
             !newEmail.contains("@") -> "Invalid email"
             else -> null
         }
+    }
+
+    fun onNameChange(newName: String) {
+        name = newName
     }
 
     fun onPasswordChange(newPassword: String) {

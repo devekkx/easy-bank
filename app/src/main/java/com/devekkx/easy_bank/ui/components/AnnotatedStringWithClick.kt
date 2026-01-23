@@ -19,7 +19,7 @@ fun AnnotatedStringWithClick(
     modifier: Modifier = Modifier
 ) {
     val annotatedString = buildAnnotatedString {
-        append("$label ")
+        append("$label  ")
         val link =
             LinkAnnotation.Clickable(
                 tag = linkText,

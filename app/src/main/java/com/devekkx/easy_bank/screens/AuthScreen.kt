@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.devekkx.easy_bank.R
+import com.devekkx.easy_bank.modules.auth.components.AuthForm
 import com.devekkx.easy_bank.modules.auth.components.HeaderTexts
-import com.devekkx.easy_bank.modules.auth.components.LoginForm
 import com.devekkx.easy_bank.navigation.AuthMode
 import com.devekkx.easy_bank.ui.components.AnnotatedStringWithClick
 import com.devekkx.easy_bank.ui.theme.Primary
@@ -86,42 +86,51 @@ fun AuthScreen(
                     .height(230.dp)
             ) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.login_illustration),
-                    contentDescription = "Login Illustration",
-                )
+                if (isRegister) {
+                    Image(
+                        painter = painterResource(id = R.drawable.signup_illustration),
+                        contentDescription = "Sign up Illustration",
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.login_illustration),
+                        contentDescription = "Login Illustration",
+                    )
+                }
             }
 
             Spacer(Modifier.height(32.dp))
 
-            // Login form composable
-            LoginForm()
+            // Signup and Login (Authentication) form composable
+            AuthForm(isRegister)
 
-            TextButton(
-                onClick = onForgotClick,
-                modifier = Modifier.align(Alignment.End)
-            ) {
-                Text("Forgot your password ?", color = Color.Gray)
+            if (!isRegister) {
+                TextButton(
+                    onClick = onForgotClick,
+                    modifier = Modifier.align(Alignment.End)
+                ) {
+                    Text("Forgot your password ?", color = Color.Gray)
+                }
+
+                Spacer(Modifier.height(24.dp))
+
+                // Fingerprint Icon for sign in screen
+                Icon(
+                    imageVector = Icons.Default.Fingerprint,
+                    contentDescription = "Biometric Login",
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clickable { /* Biometric Logic */ },
+                    tint = Color(0xFF3F37C9)
+                )
             }
-
             Spacer(Modifier.height(24.dp))
 
-            // Fingerprint Icon
-            Icon(
-                imageVector = Icons.Default.Fingerprint,
-                contentDescription = "Biometric Login",
-                modifier = Modifier
-                    .size(64.dp)
-                    .clickable { /* Biometric Logic */ },
-                tint = Color(0xFF3F37C9)
-            )
-            Spacer(Modifier.height(24.dp))
-
-//            Sign up link
+//            Sign up and login link
             AnnotatedStringWithClick(
-                label = "Don't have an account?",
-                linkText = "Sign up",
-                onClick = {},
+                label = if (isRegister) "Have an account?" else "Don't have an account?",
+                linkText = if (isRegister) "Sign in" else "Sign up",
+                onClick = onAuthActionClick,
             )
         }
     }

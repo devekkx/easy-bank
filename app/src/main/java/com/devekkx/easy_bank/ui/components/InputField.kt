@@ -35,7 +35,7 @@ enum class InputType {
 @Composable
 fun InputField(
     type: InputType,
-    placeholder: String,
+    label: String,
     value: String,
     onValueChange: (String) -> Unit,
     shape: RoundedCornerShape = RoundedCornerShape(20.dp),
@@ -77,7 +77,7 @@ fun InputField(
             value,
             onValueChange,
             singleLine = true,
-            placeholder = { Text(placeholder) },
+            label = { Text(label) },
             modifier = Modifier.fillMaxWidth(),
             shape = shape,
             isError = isError,

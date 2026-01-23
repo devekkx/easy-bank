@@ -22,14 +22,26 @@ import com.devekkx.easy_bank.ui.theme.SecondaryLight
 import com.devekkx.easy_bank.ui.theme.White
 
 @Composable
-fun LoginForm(viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = Modifier) {
+fun AuthForm(
+    isRegister: Boolean = false,
+    viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
+        if (isRegister) {
+            InputField(
+                type = InputType.TEXT,
+                label = "Name",
+                value = viewModel.name,
+                onValueChange = { viewModel.onNameChange(it) },
+                errorMessage = viewModel.nameError,
+            )
+        }
         InputField(
             type = InputType.EMAIL,
-            placeholder = "Email",
+            label = "Email",
             value = viewModel.email,
             onValueChange = { viewModel.onEmailChange(it) },
             errorMessage = viewModel.emailError,
@@ -37,7 +49,7 @@ fun LoginForm(viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = M
 
         InputField(
             type = InputType.PASSWORD,
-            placeholder = "Password",
+            label = "Password",
             value = viewModel.password,
             imeAction = ImeAction.Done,
             onValueChange = { viewModel.onPasswordChange(it) },
@@ -59,7 +71,7 @@ fun LoginForm(viewModel: AuthViewModel = hiltViewModel(), modifier: Modifier = M
             )
         ) {
             Text(
-                text = "Sign In",
+                text = if (isRegister) " Sign Up" else "Sign In",
                 fontWeight = FontWeight.SemiBold,
                 style = MaterialTheme.typography.bodyLarge,
             )
