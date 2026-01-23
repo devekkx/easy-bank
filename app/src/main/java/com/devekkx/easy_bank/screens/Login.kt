@@ -13,29 +13,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devekkx.easy_bank.R
+import com.devekkx.easy_bank.modules.auth.components.HeaderTexts
 import com.devekkx.easy_bank.modules.auth.components.LoginForm
 import com.devekkx.easy_bank.ui.theme.Primary
 
 @Composable
 fun LoginScreen(
-    checkNum: Boolean = false,
     onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit,
     onForgotClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    println(checkNum)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,23 +59,10 @@ fun LoginScreen(
         ) {
 
             // Heading texts
-            Column {
-                Text(
-                    text = "Welcome Back",
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = Primary,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "Hello there, sign in to continue",
-                    color = Color.Black,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
+            HeaderTexts(
+                title = "Welcome Back",
+                subtitle = "Hello there, sign in to continue",
+            )
             Spacer(Modifier.height(32.dp))
 
             // Login Illustration
@@ -102,26 +85,6 @@ fun LoginScreen(
             // Login form composable
             LoginForm()
 
-            //            // Input Fields
-//            OutlinedTextField(
-//                value = email,
-//                onValueChange = { email = it },
-//                placeholder = { Text("Email input") },
-//                modifier = Modifier.fillMaxWidth(),
-//                shape = RoundedCornerShape(12.dp)
-//            )
-//
-//            Spacer(Modifier.height(16.dp))
-//
-//            OutlinedTextField(
-//                value = password,
-//                onValueChange = { password = it },
-//                placeholder = { Text("Password") },
-//                trailingIcon = { Icon(Icons.Default.KeyboardArrowDown, null) },
-//                modifier = Modifier.fillMaxWidth(),
-//                shape = RoundedCornerShape(12.dp),
-//                visualTransformation = PasswordVisualTransformation()
-//            )
 //
 //            TextButton(
 //                onClick = onForgotClick,
@@ -130,19 +93,7 @@ fun LoginScreen(
 //                Text("Forgot your password ?", color = Color.Gray)
 //            }
 //
-//            Spacer(Modifier.height(24.dp))
-//
-//            // --- Sign In Button ---
-//            Button(
-//                onClick = onLoginSuccess,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(56.dp),
-//                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1F3F9)),
-//                shape = RoundedCornerShape(12.dp)
-//            ) {
-//                Text("Sign in", color = Color.LightGray) // Matches disabled look in image
-//            }
+
 //
 //            Spacer(Modifier.height(24.dp))
 //
