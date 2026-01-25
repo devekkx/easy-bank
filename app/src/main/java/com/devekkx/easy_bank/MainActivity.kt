@@ -11,8 +11,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import com.devekkx.easy_bank.ui.theme.SplashScreenViewModel
+import com.devekkx.easy_bank.navigation.MainNavigation
+import com.devekkx.easy_bank.ui.components.SplashScreenViewModel
+import com.devekkx.easy_bank.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val splashScreenViewModel: SplashScreenViewModel by lazy {
         ViewModelProvider(this@MainActivity)[SplashScreenViewModel::class.java]
@@ -48,7 +52,9 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
+            AppTheme {
+                MainNavigation()
+            }
         }
-        setTheme(R.style.Theme_EasyBank)
     }
 }

@@ -1,8 +1,7 @@
 package com.devekkx.easy_bank.ui.theme
 
-import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -11,47 +10,117 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+val DarkColorScheme = darkColorScheme(
+    primary = Primary,
+    onPrimary = White,
+    tertiary = Pink40,
+    secondary = Secondary,
+    onSecondary = Black,
+
+    background = Black,
+    onBackground = White,
+
+    surface = Black,
+    onSurface = White,
+
+    error = Error
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+val LightColorScheme = lightColorScheme(
+    primary = Primary,
+    onPrimary = White,
+    primaryContainer = PrimaryLight,
+    tertiary = Pink40,
+    secondary = Secondary,
+    onSecondary = Black,
+    secondaryContainer = SecondaryLight,
+
+    background = White,
+    onBackground = Black,
+
+    surface = White,
+    onSurface = Black,
+
+    error = Error,
+    onError = White,
+
+    outline = Neutral200
+)
+
+val AuthLightColorScheme = lightColorScheme(
+    primary = Primary,
+    onPrimary = White,
+    primaryContainer = PrimaryLight,
+    tertiary = Pink40,
+    secondary = Secondary,
+    onSecondary = Black,
+    secondaryContainer = SecondaryLight,
+
+    background = White,
+    onBackground = Black,
+
+    surface = White,
+    onSurface = Black,
+
+    error = Error,
+    onError = White,
+
+    outline = Neutral200
 )
 
 @Composable
-fun EasyBankTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
+fun colorSchemeSwitcher(
+    dynamicColor: Boolean,
+    lightColorScheme: ColorScheme = LightColorScheme,
+    darkColorScheme: ColorScheme = DarkColorScheme
+): ColorScheme {
+//    val darkTheme: Boolean = isSystemInDarkTheme()
+    val darkTheme: Boolean = false
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> darkColorScheme
+        else -> lightColorScheme
     }
+    return colorScheme
+}
+
+@Composable
+fun EasyBankTheme(
+
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+//    val colorScheme = when {
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            val context = LocalContext.current
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
+//
+//        darkTheme -> DarkColorScheme
+//        else -> LightColorScheme
+//    }
+
+    val colorScheme = colorSchemeSwitcher(dynamicColor)
 
     MaterialTheme(
         colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}
+
+
+@Composable
+fun AppTheme(dynamicColor: Boolean = false, content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = colorSchemeSwitcher(dynamicColor),
         typography = Typography,
         content = content
     )

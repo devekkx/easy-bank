@@ -4,17 +4,28 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface Route: NavKey {
+enum class AuthMode { LOGIN, REGISTER }
+
+@Serializable
+sealed interface Route : NavKey {
+    //Authentication flow
     @Serializable
-    data object Home: Route
+    data class Auth(val mode: AuthMode) : Route
 
     @Serializable
-    data object About: Route
+    data object ForgotPassword : Route
 
     @Serializable
-    data object Contact: Route
+    data object ChangePassword : Route
+
+    //Main App flow
+    @Serializable
+    data object Dashboard : Route
 
     @Serializable
-    data class Detail(val id: String): Route, NavKey
+    data class TransactionDetail(val txId: String) : Route
+
+    @Serializable
+    data object Transfer : Route
 }
 
