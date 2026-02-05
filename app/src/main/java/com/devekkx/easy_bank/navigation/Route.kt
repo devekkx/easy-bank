@@ -4,7 +4,7 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class AuthMode { LOGIN, REGISTER }
+enum class AuthMode { LOGIN, REGISTER, FORGOT_PASSWORD, CONFIRM_CODE, CHANGE_PASSWORD }
 
 @Serializable
 sealed interface Route : NavKey {
@@ -13,7 +13,7 @@ sealed interface Route : NavKey {
     data class Auth(val mode: AuthMode) : Route
 
     @Serializable
-    data object ForgotPassword : Route
+    data class ForgotPassword(val mode: AuthMode) : Route
 
     @Serializable
     data object ChangePassword : Route

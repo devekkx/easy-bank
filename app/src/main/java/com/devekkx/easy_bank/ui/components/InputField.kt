@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 enum class InputType {
-    TEXT, PASSWORD, EMAIL
+    TEXT, PASSWORD, EMAIL, PHONE
 }
 
 @Composable
@@ -57,6 +57,7 @@ fun InputField(
     val keyboardType = when (type) {
         InputType.EMAIL -> KeyboardType.Email
         InputType.PASSWORD -> KeyboardType.Password
+        InputType.PHONE -> KeyboardType.Phone
         else -> KeyboardType.Text
     }
 

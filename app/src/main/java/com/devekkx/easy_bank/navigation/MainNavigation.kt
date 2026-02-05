@@ -12,6 +12,7 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.devekkx.easy_bank.modules.auth.AuthViewModel
 import com.devekkx.easy_bank.screens.AuthScreen
+import com.devekkx.easy_bank.screens.ForgotPasswordScreen
 
 
 @Composable
@@ -56,19 +57,21 @@ fun MainNavigation(
                             backStack.removeAt(backStack.lastIndex)
                             backStack.add(Route.Auth(newMode))
                         },
-                        onForgotClick = { backStack.add(Route.ForgotPassword) },
+                        onForgotClick = { backStack.add(Route.ForgotPassword(mode = AuthMode.FORGOT_PASSWORD)) },
                     )
                 }
 
                 is Route.ForgotPassword -> NavEntry(route) {
-                    // ForgotPasswordScreen() logic...
+                    ForgotPasswordScreen(
+                        mode = route.mode,
+                        onBackClick = { backStack.removeLastOrNull() }
+                    )
                 }
 
                 is Route.Dashboard -> NavEntry(route) {
                     // DashboardScreen() logic...
                 }
 
-                // Handle remaining Route.ChangePassword if needed
                 else -> NavEntry(route) { Text("Page not found") }
             }
         }

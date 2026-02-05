@@ -36,10 +36,10 @@ import com.devekkx.easy_bank.ui.theme.Primary
 
 @Composable
 fun AuthScreen(
-    mode: AuthMode = AuthMode.LOGIN,
     onAuthActionClick: () -> Unit,
     onForgotClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    mode: AuthMode = AuthMode.LOGIN
 ) {
     val isRegister = mode == AuthMode.REGISTER
     print(isRegister)
