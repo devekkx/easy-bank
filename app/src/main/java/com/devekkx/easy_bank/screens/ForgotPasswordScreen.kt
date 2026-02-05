@@ -10,12 +10,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,20 +29,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.devekkx.easy_bank.modules.auth.AuthViewModel
+import com.devekkx.easy_bank.modules.auth.components.ForgotPasswordForm
 import com.devekkx.easy_bank.navigation.AuthMode
-import com.devekkx.easy_bank.ui.components.InputField
-import com.devekkx.easy_bank.ui.components.InputType
 import com.devekkx.easy_bank.ui.theme.White
 
 @Preview
 @Composable
 fun ForgotPasswordScreen(
     onBackClick: () -> Unit = {},
+    onHandleForgotPassword: () -> Unit = {},
+    viewModel: AuthViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
     mode: AuthMode = AuthMode.FORGOT_PASSWORD
 ) {
     val activity = LocalActivity.current as? ComponentActivity
-
     val title = when (mode) {
         AuthMode.CONFIRM_CODE -> {
             "Confirm Code"
@@ -119,8 +120,8 @@ fun ForgotPasswordScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Card(
+
                     modifier = Modifier
-                        .height(200.dp)
                         .fillMaxWidth(),
                     colors = CardDefaults.cardColors(
                         containerColor = White
@@ -129,34 +130,13 @@ fun ForgotPasswordScreen(
                         defaultElevation = 10.dp,
                     )
                 ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        InputField(
-                            type = InputType.PHONE,
-                            label = "Type your phone number",
-                            value = "",
-                            onValueChange = {},
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        Text(
-                            text = "We texted you a code to verify your phone number",
-                            fontWeight = FontWeight.Medium,
-                            maxLines = 2
-                        )
-
-                        Button(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            onClick = {}) {
-                            Text(
-                                modifier = Modifier.padding(vertical = 10.dp),
-                                text = "Send Code"
-                            )
+                    ForgotPasswordForm(title, mode,
+                        onButtonClick = {
+                        viewModel.handleAuth(onSuccess = {
+                            onHandleForgotPassword()
                         }
-                    }
+                        )
+                    })
                 }
             }
         }

@@ -38,7 +38,6 @@ import com.devekkx.easy_bank.ui.theme.Primary
 fun AuthScreen(
     onAuthActionClick: () -> Unit,
     onForgotClick: () -> Unit,
-    modifier: Modifier = Modifier,
     mode: AuthMode = AuthMode.LOGIN
 ) {
     val isRegister = mode == AuthMode.REGISTER

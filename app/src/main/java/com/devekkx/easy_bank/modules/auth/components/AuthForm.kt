@@ -68,7 +68,7 @@ fun AuthForm(
                 else false,
                 modifier = Modifier.onFocusChanged { isPasswordFocused = it.isFocused },
                 onAction = {
-                    viewModel.handleAuth()
+                    viewModel.handleAuth(onSuccess = {})
                 }
 
             )
@@ -104,14 +104,14 @@ fun AuthForm(
                 onValueChange = { viewModel.onConfirmPasswordChange(it) },
                 errorMessage = viewModel.confirmPasswordError,
                 onAction = {
-                    viewModel.handleAuth()
+                    viewModel.handleAuth(onSuccess = {})
                 }
             )
 
         }
 
         Button(
-            onClick = { viewModel.handleAuth() },
+            onClick = { viewModel.handleAuth(onSuccess = {}) },
             enabled = if (isRegister) viewModel.isSignUpFormValid else viewModel.isLoginFormValid,
             modifier = Modifier
                 .fillMaxWidth()

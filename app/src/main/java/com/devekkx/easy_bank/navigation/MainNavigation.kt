@@ -1,6 +1,5 @@
 package com.devekkx.easy_bank.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +49,7 @@ fun MainNavigation(
                 is Route.Auth -> NavEntry(route) {
                     AuthScreen(
                         mode = route.mode,
+//                        viewModel = hiltViewModel(key = route.mode.name),
                         onAuthActionClick = {
                             // Toggle between Login and Register
                             val newMode =
@@ -64,7 +64,23 @@ fun MainNavigation(
                 is Route.ForgotPassword -> NavEntry(route) {
                     ForgotPasswordScreen(
                         mode = route.mode,
-                        onBackClick = { backStack.removeLastOrNull() }
+                        viewModel = hiltViewModel(key = route.mode.name),
+                        onBackClick = { backStack.removeLastOrNull() },
+                        onHandleForgotPassword = {
+                            when (route.mode) {
+                                AuthMode.CHANGE_PASSWORD -> {
+                                    backStack.add(Route.ForgotPassword(mode = AuthMode.CHANGE_PASSWORD))
+                                }
+
+                                AuthMode.CONFIRM_CODE -> {
+                                    backStack.add(Route.ForgotPassword(mode = AuthMode.CHANGE_PASSWORD))
+                                }
+
+                                else -> backStack.add(Route.ForgotPassword(mode = AuthMode.FORGOT_PASSWORD))
+                            }
+//                            backStack.removeLastOrNull()
+//                            backStack.add(Route.Auth(mode = AuthMode.LOGIN))
+                        }
                     )
                 }
 
@@ -72,7 +88,11 @@ fun MainNavigation(
                     // DashboardScreen() logic...
                 }
 
-                else -> NavEntry(route) { Text("Page not found") }
+                else -> NavEntry(route) {
+                    AuthScreen(
+                        mode = AuthMode.LOGIN,
+                        onAuthActionClick = {}, onForgotClick = {})
+                }
             }
         }
     )

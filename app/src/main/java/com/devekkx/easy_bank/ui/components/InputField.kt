@@ -73,31 +73,29 @@ fun InputField(
         }
     )
 
-    Column {
+    Column(modifier = modifier) {
         OutlinedTextField(
             value,
             onValueChange,
             singleLine = true,
-            label = { Text(label) },
-            modifier = Modifier.fillMaxWidth(),
+            label = {Text(text = label) },
             shape = shape,
+            modifier = Modifier.fillMaxWidth(),
             isError = isError,
             keyboardActions = keyboardActions,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
             visualTransformation = visualTransformation,
-            trailingIcon = {
-                if (type == InputType.PASSWORD) {
-                    val icon = if (passwordVisible)
-                        Icons.Filled.VisibilityOff
-                    else
-                        Icons.Filled.Visibility
-                    val description = if (passwordVisible) "Hide password" else "Show password"
-
+            trailingIcon = if (type == InputType.PASSWORD) {
+                {
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(imageVector = icon, contentDescription = description)
+                        Icon(
+                            imageVector = if (passwordVisible) Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff,
+                            contentDescription = if (passwordVisible) "Hide" else "Show"
+                        )
                     }
                 }
-            }
+            } else null
         )
 
         // Show error text if it exists
